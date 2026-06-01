@@ -1219,7 +1219,5 @@ function closeAdminPanel() {
   }
 
   bindEvents();
-  localStorage.clear();
-location.reload();
   renderStore();
 })();
