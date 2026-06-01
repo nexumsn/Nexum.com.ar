@@ -1,3 +1,4 @@
+console.log("APP INICIADA");
 (function () {
   const STORE_KEY = "editableStoreState.v1";
   const CART_KEY = "editableStoreCart.v1";
