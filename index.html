@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tienda editable</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <header class="store-header">
+      <div id="announcementBar" class="announcement-bar"></div>
+
+      <nav class="main-nav" aria-label="Navegacion principal">
+        <a class="brand" href="#catalogo" aria-label="Ir al catalogo">
+          <img id="storeLogo" class="brand-logo" src="assets/logo.png" alt="Logo de la tienda">
+          <span class="brand-copy">
+            <strong id="storeName">Tienda</strong>
+            <span id="storeTagline">Productos seleccionados</span>
+          </span>
+        </a>
+
+        <div class="search-box">
+          <label class="sr-only" for="productSearch">Buscar productos</label>
+          <input id="productSearch" type="search" placeholder="Buscar productos..." autocomplete="off">
+          <div id="searchResults" class="search-results" hidden></div>
+        </div>
+
+        <div class="nav-actions">
+          <button id="adminButton" class="button ghost" type="button">Admin</button>
+          <button id="cartButton" class="button cart-button" type="button" aria-haspopup="dialog">
+            Carrito
+            <span id="cartCount" class="cart-count">0</span>
+          </button>
+        </div>
+      </nav>
+
+      <section class="hero-carousel" aria-label="Promociones destacadas">
+        <div id="slidesTrack" class="slides-track"></div>
+        <div class="carousel-tools">
+          <button class="icon-button" type="button" data-carousel="prev" aria-label="Foto anterior">&lt;</button>
+          <div id="carouselDots" class="carousel-dots" aria-label="Seleccionar foto"></div>
+          <button class="icon-button" type="button" data-carousel="next" aria-label="Foto siguiente">&gt;</button>
+        </div>
+      </section>
+    </header>
+
+    <main id="catalogo" class="shop-shell">
+      <section class="catalog-heading">
+        <div>
+          <p class="eyebrow">Catalogo</p>
+          <h1 id="catalogTitle">Productos</h1>
+          <p id="catalogSubtitle">Elegí tus favoritos y pedilos por WhatsApp.</p>
+        </div>
+        <div id="categoryFilters" class="category-filters" aria-label="Filtrar por categoria"></div>
+      </section>
+
+      <section id="productGrid" class="product-grid" aria-label="Lista de productos"></section>
+    </main>
+
+    <div id="drawerBackdrop" class="drawer-backdrop" hidden></div>
+
+    <aside id="cartDrawer" class="drawer" aria-label="Carrito de compras" aria-hidden="true">
+      <div class="drawer-header">
+        <div>
+          <p class="eyebrow">Tu pedido</p>
+          <h2>Carrito</h2>
+        </div>
+        <button class="icon-button" type="button" data-close-cart aria-label="Cerrar carrito">x</button>
+      </div>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="checkout-box">
+        <div class="total-line">
+          <span>Total</span>
+          <strong id="cartTotal">$0</strong>
+        </div>
+        <label>
+          Nombre
+          <input id="customerName" type="text" placeholder="Tu nombre">
+        </label>
+        <label>
+          Telefono
+          <input id="customerPhone" type="tel" placeholder="Tu telefono">
+        </label>
+        <label>
+          Direccion o retiro
+          <input id="customerAddress" type="text" placeholder="Direccion, barrio o punto de retiro">
+        </label>
+        <label>
+          Nota
+          <textarea id="customerNote" rows="3" placeholder="Horarios, colores, comentarios..."></textarea>
+        </label>
+        <button id="checkoutWhatsapp" class="button primary wide" type="button">Enviar pedido por WhatsApp</button>
+        <p id="checkoutHint" class="mini-copy"></p>
+      </div>
+    </aside>
+
+    <aside id="adminPanel" class="admin-panel" aria-label="Panel de administracion" aria-hidden="true">
+      <div class="admin-frame">
+        <aside class="admin-sidebar">
+          <div class="admin-brand">
+            <strong>Panel admin</strong>
+            <span>Edita tu tienda sin tocar codigo</span>
+          </div>
+          <nav class="admin-nav" aria-label="Secciones de administracion">
+            <button class="admin-tab active" type="button" data-admin-section="general">General</button>
+            <button class="admin-tab" type="button" data-admin-section="apariencia">Apariencia</button>
+            <button class="admin-tab" type="button" data-admin-section="carrusel">Carrusel</button>
+            <button class="admin-tab" type="button" data-admin-section="productos">Productos</button>
+            <button class="admin-tab" type="button" data-admin-section="categorias">Categorias</button>
+            <button class="admin-tab" type="button" data-admin-section="whatsapp">WhatsApp</button>
+            <button class="admin-tab" type="button" data-admin-section="datos">Datos</button>
+          </nav>
+          <button class="button ghost wide" type="button" data-close-admin>Cerrar panel</button>
+        </aside>
+        <section class="admin-workspace">
+          <div class="admin-topbar">
+            <div>
+              <p class="eyebrow">Personalizacion</p>
+              <h2 id="adminTitle">General</h2>
+            </div>
+            <button class="button primary" type="button" data-save-admin>Guardar cambios</button>
+          </div>
+          <div id="adminContent" class="admin-content"></div>
+        </section>
+      </div>
+    </aside>
+
+    <div id="adminLoginModal" class="modal-backdrop" hidden>
+      <form id="adminLoginForm" class="modal-card">
+        <p class="eyebrow">Acceso creador</p>
+        <h2>Entrar al panel</h2>
+        <p>Usa el PIN de administrador para editar productos, colores, carrusel y categorias.</p>
+        <label>
+          PIN
+          <input id="adminPinInput" type="password" inputmode="numeric" autocomplete="current-password" placeholder="1234">
+        </label>
+        <div class="modal-actions">
+          <button class="button ghost" type="button" data-close-login>Cancelar</button>
+          <button class="button primary" type="submit">Entrar</button>
+        </div>
+      </form>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
